@@ -3,6 +3,7 @@
 #include <map>
 #include "tstack.h"
 
+
 int priority(char symbol) {
   switch (symbol) {
     case ('('):
