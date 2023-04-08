@@ -29,23 +29,7 @@ int priority(char symbol) {
       break;
   }
 }
-int calculations(char operation, int i, int j) {
-  switch (operation) {
-    case '+':
-      return i + j;
-      break;
-    case '-':
-      return i - j;
-      break;
-    case '*':
-      return i * j;
-      break;
-    case '/':
-      return i / j;
-      break;
-  }
-  return 0;
-}
+
 
 
 std::string infx2pstfx(std::string inf) {
@@ -53,7 +37,7 @@ std::string infx2pstfx(std::string inf) {
   std::string x = "";
   int prior1 = -1;
   int prior2 = 0;
-  for (int k = 0; i < inf.length(); ++k) {
+  for (int k = 0; k < inf.length(); ++k) {
     prior1 = priority(s1.get());
     prior2 = priority(inf[k]);
     if (inf[k] == '\n') {
@@ -93,6 +77,24 @@ std::string infx2pstfx(std::string inf) {
     res += x[k];
   }
   return res;
+}
+
+int calculations(char operation, int i, int j) {
+  switch (operation) {
+    case '+':
+      return i + j;
+      break;
+    case '-':
+      return i - j;
+      break;
+    case '*':
+      return i * j;
+      break;
+    case '/':
+      return i / j;
+      break;
+  }
+  return 0;
 }
 
 int eval(std::string pref) {
