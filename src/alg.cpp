@@ -3,7 +3,7 @@
 #include <map>
 #include "tstack.h"
 
-int prior(char a) {
+int prioritet(char a) {
   if (a == '(')
     return 0;
   else if (a == ')')
@@ -20,7 +20,7 @@ int number(char a) {
   return (a <= '9' && a >= '0');
 }
 
-int oper(char a) {
+int operacia(char a) {
   return (a == '-' || a == '+' || a == '/' || a == '*');
 }
 
@@ -40,8 +40,8 @@ std::string infx2pstfx(std::string inf) {
         stack1.pop();
       }
       stack1.pop();
-    } else if (oper(inf[i])) {
-      while (!stack1.isEmpty() && prior(inf[i]) <= prior(stack1.get())) {
+    } else if (operacia(inf[i])) {
+      while (!stack1.isEmpty() && prioritet(inf[i]) <= prioritet(stack1.get())) {
         str += stack1.get();
         str += " ";
         stack1.pop();
@@ -58,29 +58,29 @@ std::string infx2pstfx(std::string inf) {
     return str;
 }
 
-int eval(std::string post) {
+int eval(std::string pref) {
   TStack<int, 100> stack2;
-  for (int i = 0; i < post.length(); i++) {
-    if (post[i] == ' ') {
+  for (int i = 0; i < pref.length(); i++) {
+    if (pref[i] == ' ') {
       continue;
-    } else if (number(post[i])) {
-      int n = post[i] - '0';
-      stack2.push(n);
-    } else if (oper(post[i])) {
-      int n2 = stack2.get();
+    } else if (number(pref[i])) {
+      int x = pref[i] - '0';
+      stack2.push(x);
+    } else if (operacia(pref[i])) {
+      int x2 = stack2.get();
       stack2.pop();
-      int n1 = stack2.get();
+      int x1 = stack2.get();
       stack2.pop();
-      if (post[i] == '-') {
-        stack2.push(n1 - n2);
-      } else if (post[i] == '+') {
-        stack2.push(n1 + n2);
-      } else if (post[i] == '/') {
-        stack2.push(n1 / n2);
-      } else if (post[i] == '*') {
-        stack2.push(n1 * n2);
+      if (pref[i] == '-') {
+        stack2.push(x1 - x2);
+      } else if (pref[i] == '+') {
+        stack2.push(x1 + x2);
+      } else if (pref[i] == '/') {
+        stack2.push(x1 / x2);
+      } else if (pref[i] == '*') {
+        stack2.push(x1 * x2);
       }
-     }
+    }
   }
   return stack2.get();
 }
