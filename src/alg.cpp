@@ -40,7 +40,7 @@ std::string infx2pstfx(std::string inf) {
         stack1.pop();
       }
       stack1.pop();
-    } else if (oper(inf[i])) {
+    } else if (operacia(inf[i])) {
       while (!stack1.isEmpty() && prioritet(inf[i]) <= prioritet(stack1.get())) {
         str += stack1.get();
         str += " ";
